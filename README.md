@@ -5,7 +5,7 @@ VSD workshop - RTL design using Verilog with SKY130 Technology
 
 This repo is the report for 5-day workshop on RTL design using Verilog with SKY130 Technology by VLSI sytem design.
 
-## Contents
+## *Contents*
 ------------
 * [Introduction to tools](introduction-to-tools)
 * [Day 1](day-1)
@@ -20,5 +20,7 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
 
 
 ## Introduction to tools
-* SKY130 * Sky130 process node and pdk(process design kit) are an open-source packages provided by Google and skywater for 130nm technology.
-* iverilog * Iverilog stands for Icarus verilog, is an open source
+* **SKY130** - Sky130 process node and pdk(process design kit) are an open-source packages provided by Google and skywater for 130nm technology.
+* **iverilog** - Iverilog stands for Icarus verilog, is an open source verilog simulator.
+* **GTKWave** - GTKWave is an open-source vcd(value change dump) waveform viewer.
+* **Yosys** - Yosys is an open-source synthesis tool.
