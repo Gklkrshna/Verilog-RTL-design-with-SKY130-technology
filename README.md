@@ -37,5 +37,7 @@ Use the below commands for simulation and view the waveform with iverilog and GT
         iverilog file_name.v testbench_name.v           //creates an executable file
         ./a.out                                         //generates vcd file
         gtkwave testbench_name.vcd                      //view vcd file in gtkwave viewer
-    
-###### Synthesis Flow
+Snippet below shows the terminal for simulation flow of a synchronous reset d-flipflop.
+![Simulation Flow CLI](https://user-images.githubusercontent.com/78468534/120084681-dd73c280-c0ef-11eb-9831-792c15cb5a2d.jpeg)
+
+### Synthesis Flow
