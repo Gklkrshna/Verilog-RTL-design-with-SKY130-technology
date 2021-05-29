@@ -7,7 +7,7 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
 
 ## Contents
 ------------
-* [Introduction to tools]
+* [Introduction to tools](introduction-to-tools)
 
 
 
