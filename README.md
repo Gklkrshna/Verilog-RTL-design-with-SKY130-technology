@@ -7,12 +7,14 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
 
 ## *Contents*
 ------------
-* [Introduction to tools](introduction-to-tools)
-* [Day 1](day-1)
-* [Day 2](day-2)
-* [Day 3](day-3)
-* [Day 4](day-4)
-* [Day 5](day-5)
+* [Introduction to tools](#introduction-to-tools)
+* [Day 1](#day-1)
+  * [Simulation Flow](#simulation-flow)
+  * [Synthesis Flow](#synthesis-flow)
+* [Day 2](#day-2)
+* [Day 3](#day-3)
+* [Day 4](#day-4)
+* [Day 5](#day-5)
 
 ---------
 ## Introduction to tools
