@@ -44,3 +44,22 @@ Waveform shown by the GTKwave for the same example is:
 ![dff_syncres_waveform](https://user-images.githubusercontent.com/78468534/120097697-ab924880-c14f-11eb-91f5-96a38ad9ea57.jpeg)
   
 ### Synthesis Flow
+The synthesis tool being used is Yosys. The inputs for Yosys are the RTL design written in HDL and the libraries required. Here the libraries by sky130 is used. Libraries exist as ".lib" files. These libraries contain different flavours of the most common logical blocks(like AND, NOT gate, MUX, Flip-flops, etc). The circuit is synthesised with these logical blocks.  
+##### Why do we need different flavours?
+The different flavours of same logic blocks(standard cells) allows these to be used in different applications. These flavours may work on different speeds. The faster the cell the more area and power required. The cell used depends on which parameter(s) is to be optimised.  
+Additionally different cells are required to meet the timing requirements. More about that is discussed in [Day 2](day-2).  
+
+First of all, Yosys tool is invoked in the terminal.
+
+                $ yosys
+                
+Now inside the yosys, type the following commands for synthesis
+
+                yosys> read_liberty -lib ../path_to_library             //reads library file
+                yosys> read_verilog file_name.v                         //reads RTL file to be synthesized
+                yosys> synth -top file_name
+                yosys> abc -liberty ../path_to_library                  //actual synthesis
+                yosys> write_verilog -noattr netlist_name.v             //write created netlist as verilog file
+                yosys> show                                             //shows netlist as circuit diagram with cells
+
+
