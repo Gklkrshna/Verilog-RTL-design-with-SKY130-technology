@@ -22,6 +22,10 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
   * [GLS and Synthesis Simulation Mismatch](#gls-and-synthesis-simulation-mismatch)
   * [Blocking and Non Blocking Statements](#blocking-and-non-blocking-statements) 
 * [Day 5](#day-5)
+  * [IF and CASE Statements](#if-and-case-statements)
+  * [FOR loop and FOR GENERATE](#for-loop-and-for-generate)
+* [Acknowledgement](#acknowledgement)
+
 
 ---------
 ## Introduction to tools
@@ -197,15 +201,77 @@ Gate-level simulation(GLS) is the simulation of gate level netlist of a design u
 This can occur due to a variety of reasons including:
 * missing sensitivity list
 * wrong use of blocking/non-blocking statements
-* non-standard verilog coding
+* non-standard verilog coding  
 
-
+Lets see an example of such sythesis simulation mismatch
+![badmx logic](https://user-images.githubusercontent.com/78468534/120114674-ea4eef80-c19d-11eb-82c8-a14058378278.jpeg)  
+This is the RTL code for a mux, but the sensitivity list shows only "sel". This means the output will only change when there is a change in "sel" signal. This is obviously not the desired logic and will cause synthesis simulation mismatch due to the missing elements in sensitivity list.  
+The waveform obtained from RTL simulation is :
+![bdmx wave](https://user-images.githubusercontent.com/78468534/120114836-a01a3e00-c19e-11eb-8462-a5da3a576bad.jpeg)  
+compared to the waveform from GLS
+![badmx gls](https://user-images.githubusercontent.com/78468534/120114887-e079bc00-c19e-11eb-9cca-113090b823c1.jpeg)  
+  
+_Note: The verilog models of standard cells must also be called on the iverilog for GLS._
+### Blocking and Non Blocking Statements
+In verilog HDL, there are two types of assignment operators:
+* <= this assignment creates a non-blocking statement
+* =  this assignment creates a blocking statement
+  
+For non-blocking statements all the RHS are first found out before it is assigned. Since all such statements are assigned at the same time the order of statements are irrelevant. In the case of blocking statements, values are assigned instantly and therefore the order of statements are extremely important.  
+While using blocking statements if care is not taken it could result in synthesis simulation mismatch. For example consider:
+![block logc](https://user-images.githubusercontent.com/78468534/120115260-82e66f00-c1a0-11eb-992a-7c61bab6db34.jpeg)  
+_RTL simulation waveform_
+![blckng wave](https://user-images.githubusercontent.com/78468534/120115319-d3f66300-c1a0-11eb-94a1-545790d023a3.jpeg)  
+_GLS waveform_
+![blckng gls](https://user-images.githubusercontent.com/78468534/120115337-e1abe880-c1a0-11eb-92bc-b8c735d712c7.jpeg)  
 
 
 ## Day 5
+### IF and CASE statements
+The _IF_ and _CASE_ statements are the conditional statements present in verilog HDL.  
+If statements-    
+              
+              if (condition1)
+                  ......
+              else if (condition2)
+                  ......
+              else
+                  ......
+Case statements-
+
+             case(sel)
+                condition1 : ......
+                condition2 : ......
+                default    : ......
+                
+The main difference between  case and if statements is the priority level. If statements has priority level and case statements do not. Although these statements are required in almost all high level design it also brings complexities. An incomplete if or case statements may create additional problems. For example consider:
+
+![inco_if](https://user-images.githubusercontent.com/78468534/120116005-aa8b0680-c1a3-11eb-823d-00933e44d842.jpeg)  
+The incomplete if statement in this example with infer unwanted latches. This is evident in simulation and synthesis results given below.  
+_Simulation waveform_
+![incomp_if wave](https://user-images.githubusercontent.com/78468534/120116051-e3c37680-c1a3-11eb-84d1-8028ce0dcabb.jpeg)  
+_Synthesis report_
+![incomp_if rprt](https://user-images.githubusercontent.com/78468534/120116070-fd64be00-c1a3-11eb-9360-dfbc121d186b.jpeg)  
+_Synthesised circuit_
+![incomp_if ckt](https://user-images.githubusercontent.com/78468534/120116091-0eadca80-c1a4-11eb-8ca5-44eb35488b11.jpeg)  
+Similarly unwanted latches are inferred for incomplete case statements as well.
 
 
+### FOR loop and FOR GENERATE
+For loops are always written inside "always" statements. The syntax for "for" loop is similar to that in C. For loops are used where multiple evaluating statements need to be run.  
+For example:  
+_Demux using for loop_
+![demux_gen logic](https://user-images.githubusercontent.com/78468534/120116279-17eb6700-c1a5-11eb-9c1a-0b65321bd293.jpeg)
+
+  
+For generate statements are written outside "always" statement. It is used for instantiating a module multiple times within an RTL.  
+For example:  
+_Ripple carry adder using for generate_
+![rca logic](https://user-images.githubusercontent.com/78468534/120116313-39e4e980-c1a5-11eb-945e-9cd88ea0a5ed.jpeg)
+
+  
   
 ## Acknowledgement
 * [Kunal Ghosh](https://github.com/kunalg123)
 * [Shon Taware](https://github.com/ShonTaware)
+* Mukesh Nadar
