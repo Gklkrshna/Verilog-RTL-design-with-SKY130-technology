@@ -19,6 +19,8 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
   * [Combinational Logic Optimisations](#combinational-logic-optimisations)
   * [Sequential Logic Optimisations](#sequential-logic-optimisations)
 * [Day 4](#day-4)
+  * [GLS and Synthesis Simulation Mismatch](#gls-and-synthesis-simulation-mismatch)
+  * [Blocking and Non Blocking Statements](#blocking-and-non-blocking-statements) 
 * [Day 5](#day-5)
 
 ---------
@@ -188,11 +190,22 @@ From the waveform it is clear that output is only dependant single bit of the co
 The synthesised output contains only one flipflop as other unused flops are optimised off.
 
 ---------
-### Day 4
+## Day 4
+### GLS and Synthesis Simulation Mismatch
+While using an HDL to write the RTL logic, if not careful, synthesis simulation mismatch may occur.
+Gate-level simulation(GLS) is the simulation of gate level netlist of a design unlike the normal functional simulation where the behavioural RTL is simulated. When the RTL simulation is different from GLS the circuit is said to exhibit synthesis simulation mismatch.  
+This can occur due to a variety of reasons including:
+* missing sensitivity list
+* wrong use of blocking/non-blocking statements
+* non-standard verilog coding
 
 
 
 
+## Day 5
 
 
   
+## Acknowledgement
+* [Kunal Ghosh](https://github.com/kunalg123)
+* [Shon Taware](https://github.com/ShonTaware)
