@@ -31,7 +31,7 @@ The design flow consists of various types of files. These include:
 * Testbench - The testbench is code also written in HDL. The testbench instantiated the RTL design and observes its outputs for different input values to check the logic functionality of code.
 * Gate level netlist - The gate level netlist contains the design in terms of individual gate connections as opposed to RTL design which is the behavioural code for the logic implemented.
 ### Simulation Flow
-The iverilog simulator takes the verilog(RTL or netlist) file and test bench as input and produces vcd (Value Change Dump) file. This vcd file can be viewed using the GTKWave.
+The iverilog simulator takes the verilog(RTL or netlist) file and test bench as input and produces vcd (Value Change Dump) file. This vcd file can be viewed using the GTKWave.  
 *Note: The iverilog simulation flow is similar for both RTL simulation and Gate-level simulation(GLS).*
 ##### Commands for simulation
 Use the below commands for simulation and view the waveform with iverilog and GTKWave respectively.
@@ -55,6 +55,8 @@ First of all, Yosys tool is invoked in the terminal.
 
                 $ yosys
                 
+![Yosys](https://user-images.githubusercontent.com/78468534/120098641-b8656b00-c154-11eb-8ade-6dea00d7616c.jpeg)
+
 Now inside the yosys, type the following commands for synthesis
 
                 yosys> read_liberty -lib ../path_to_library             //reads library file
@@ -64,4 +66,25 @@ Now inside the yosys, type the following commands for synthesis
                 yosys> write_verilog -noattr netlist_name.v             //write created netlist as verilog file
                 yosys> show                                             //shows netlist as circuit diagram with cells
 
+Finally use "exit" command when you want to exit from yosys.  
+*Note: The present working directory should contain RTL design before invoking yosys.
+---------
+
+## Day 2
+### Library files
+The library file used is *_sky130_fd_sc_hd_tt_025C_1v80.lib_*. The nomenclature for library is not random and shows important parameters most importantly the *Process*,*Temperature* and *Voltage*. These parameters are show in the end of the name "tt_025C_1v80".  
+* tt means the process is "typical"
+* 025C shows the temperature - 25 degree celsius
+* 1v80 shows the voltage - 1.8V
+  
+##### Flavours of standard cells
+As mentioned before, the library contains different flavours of same logic gates. This is done mainly to meet timing constraints.  
+* *Faster cells* increases the clock frequency.
+  T(clk) > T(cq_launch_flop) + T(combi) +T(setup_capture_flop)
+* *Slower cells* are required to prevent hold violations.
+  T(hold_capture_flop) < T(cq_launch_flop) + T(combi)
+  
+These different flavours are named different within the library. For example, the different flavours of and gate present are:
+- based on delay:      _sky130_fd_sc_hd_and2_0 > sky130_fd_sc_hd_and2_2 > sky130_fd_sc_hd_and2_4_
+- based on power/area: _sky130_fd_sc_hd_and2_0 < sky130_fd_sc_hd_and2_2 < sky130_fd_sc_hd_and2_4_
 
