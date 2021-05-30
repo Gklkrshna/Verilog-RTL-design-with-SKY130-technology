@@ -88,3 +88,24 @@ These different flavours are named different within the library. For example, th
 - based on delay:      _sky130_fd_sc_hd_and2_0 > sky130_fd_sc_hd_and2_2 > sky130_fd_sc_hd_and2_4_
 - based on power/area: _sky130_fd_sc_hd_and2_0 < sky130_fd_sc_hd_and2_2 < sky130_fd_sc_hd_and2_4_
 
+### Hierarchial and Flat synthesis
+Many times in complex systems, different parts of system are designed seperately as RTL blocks(sub-modules) which can later be combined to form the whole system(top module). In such cases the synthesis can be done in two ways:
+* *Hierarchial synthesis* - Here the top module is synthesised in terms of sub-modules. Only the higher level abstraction is required.
+* *Flat Synthesis* - Here all sub-modules are also expanded and the top module is sysnthesised in terms of standard cells. It has lower abstraction compared to hierarchial synthesis.
+Consider the example
+![multiple_modules](https://user-images.githubusercontent.com/78468534/120099836-52c8ad00-c15b-11eb-837a-cb3ac34914a2.jpeg)
+  
+If this logic is synthesised noramlly it will do hierarchial synthesis. The netlist made following hierarchial synthesis is
+![multiplemodules_hier](https://user-images.githubusercontent.com/78468534/120099897-97544880-c15b-11eb-8940-ef1309bf5517.jpeg)
+  
+For flat synthesis an additional command needs to be added to the normal synthesis flow.
+
+              yosys> synth -top file_name
+              yosys> flatten
+              yosys> abc -liberty ../path_to_library
+              yosys> write_verilog flat_netlist_name
+
+This will give us a flattened netlist like shown below.
+![multiplemodules_flat](https://user-images.githubusercontent.com/78468534/120100002-10ec3680-c15c-11eb-8ca5-7a7dc335edf0.jpeg)
+
+              yosys> abc -liberty ../path_to_library
