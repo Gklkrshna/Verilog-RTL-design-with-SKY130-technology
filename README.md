@@ -12,6 +12,9 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
   * [Simulation Flow](#simulation-flow)
   * [Synthesis Flow](#synthesis-flow)
 * [Day 2](#day-2)
+  * [Library files](#library-files)
+  * [Hierarchial and Flat Synthesis](#hierarchial-and-flat-synthesis)
+  * [Flipflop Coding and Synthesis](#flipflop-coding-and-synthesis)
 * [Day 3](#day-3)
 * [Day 4](#day-4)
 * [Day 5](#day-5)
@@ -76,6 +79,10 @@ The library file used is *_sky130_fd_sc_hd_tt_025C_1v80.lib_*. The nomenclature 
 * tt means the process is "typical"
 * 025C shows the temperature - 25 degree celsius
 * 1v80 shows the voltage - 1.8V
+
+![sky130 lib](https://user-images.githubusercontent.com/78468534/120100304-bc49bb00-c15d-11eb-8d26-593b74b3120a.jpeg)
+  
+_SKY130 library file_
   
 ##### Flavours of standard cells
 As mentioned before, the library contains different flavours of same logic gates. This is done mainly to meet timing constraints.  
@@ -109,5 +116,44 @@ For flat synthesis an additional command needs to be added to the normal synthes
 This will give us a flattened netlist like shown below.  
 
 ![multiplemodules_flat](https://user-images.githubusercontent.com/78468534/120100002-10ec3680-c15c-11eb-8ca5-7a7dc335edf0.jpeg)
+  
+### Flipflop Coding and Synthesis
+When it comes to flipflops, the set/reset logic is very important. They can be either synchronous or asynchronous. For flops with synchronous set/reset, the set/reset is dependant on clock and therefore this logic gets realised on the input (D- input).  
+In the HDL code the asynchronous and  synchronous reset can be distinguished by the sensistivity list. A flipflop with asynchronous reset should have both clock and reset on the sensitiivity list. A flipflop with synchronous reset on the other hand would have only clock on the sensitivity list as the reset is also dependant on the clock.  
+
+![dff_syncres_waveform](https://user-images.githubusercontent.com/78468534/120097697-ab924880-c14f-11eb-91f5-96a38ad9ea57.jpeg)
+D flipflop with synchronous reset  
+![asyncres_wave](https://user-images.githubusercontent.com/78468534/120100865-ad183c80-c160-11eb-9be7-a200e64fea33.jpeg)
+D flipflop with asynchronous reset. 
+
+Now during synthesis of sequential circuits, an additional step is required to point the tools towards library containing the flipflops. This is done by the command:
+
+              yosys> synth -top file_name
+              yosys> dfflibmap -liberty ../path_to_library
+              yosys> abc -liberty ../path_to_library
+              yosys> show
+              
+The circuits obtained by designing flipflops with asynchronous and synchronous reset are given below
+![asyncres ckt](https://user-images.githubusercontent.com/78468534/120100923-f8324f80-c160-11eb-89cf-18652f8c6287.jpeg)
+D flipflop with asynchronous reset.  
+
+![syncres ckt](https://user-images.githubusercontent.com/78468534/120100877-be614900-c160-11eb-9bf1-e62b4c2b48ec.jpeg)
+D flipflop with synchronous reset.  
+
+The netlist clearly shows that the synchronous reset is applied at D input as expected.  
+---------
+ ## Day 3
+ The synthesis tool comes with many features. One of such features which has a huge impact on design is _optimisation_. The tool does optimisation on the logic (RTL design). Usually these optimisation are done to obtain least hardware and omit unwanted components.  
+ ### Combinational Logic Optimisations
+ In designs containing complex combinational logic, most of the time certain components are not reflected in the output and hence are considered _useless_. Such parts are removed by the tool. Sometimes sub-modules within a top module which does not affect the output may also be removed.  
+ Consider the example:  
+ ![combi_logic](https://user-images.githubusercontent.com/78468534/120101359-5d874000-c163-11eb-8b49-157afd599d3b.jpeg)
+  
+From the boolean logic for this RTL, it is clear that "b" input is not reflected on the output. Hence the synthesised netlist should optimisations. This becomes clear from the netlist given below.  
+![combi_ckt](https://user-images.githubusercontent.com/78468534/120101495-fae27400-c163-11eb-875a-bc249eadb565.jpeg)  
+
+Now consider a combinational circuit written as sub-modules.  
 
 
+
+  
