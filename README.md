@@ -180,6 +180,8 @@ Now consider the next example for optimisation of unused outputs in sequential c
   
 ![countopt wave](https://user-images.githubusercontent.com/78468534/120102452-b2798500-c168-11eb-9b44-a7a583a3f607.jpeg)  
 _Waveform_  
+  
+  
 From the waveform it is clear that output is only dependant single bit of the counter. Hence the other flops can be optimised.  
 ![coutopt rprt](https://user-images.githubusercontent.com/78468534/120102517-0b491d80-c169-11eb-9a9f-6e3a65572fa7.jpeg)  
 ![countopt ckt](https://user-images.githubusercontent.com/78468534/120102528-1439ef00-c169-11eb-8560-326d1c94b493.jpeg)  
