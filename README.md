@@ -16,6 +16,8 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
   * [Hierarchial and Flat Synthesis](#hierarchial-and-flat-synthesis)
   * [Flipflop Coding and Synthesis](#flipflop-coding-and-synthesis)
 * [Day 3](#day-3)
+  * [Combinational Logic Optimisations](#combinational-logic-optimisations)
+  * [Sequential Logic Optimisations](#sequential-logic-optimisations)
 * [Day 4](#day-4)
 * [Day 5](#day-5)
 
@@ -145,14 +147,49 @@ The netlist clearly shows that the synchronous reset is applied at D input as ex
  ## Day 3
  The synthesis tool comes with many features. One of such features which has a huge impact on design is _optimisation_. The tool does optimisation on the logic (RTL design). Usually these optimisation are done to obtain least hardware and omit unwanted components.  
  ### Combinational Logic Optimisations
- In designs containing complex combinational logic, most of the time certain components are not reflected in the output and hence are considered _useless_. Such parts are removed by the tool. Sometimes sub-modules within a top module which does not affect the output may also be removed.  
+ In designs containing complex combinational logic, most of the time certain components are not reflected in the output and hence are considered _useless_. Such parts are removed by the tool. Sometimes sub-modules within a top module which does not affect the output may also be removed.    
  Consider the example:  
  ![combi_logic](https://user-images.githubusercontent.com/78468534/120101359-5d874000-c163-11eb-8b49-157afd599d3b.jpeg)
   
 From the boolean logic for this RTL, it is clear that "b" input is not reflected on the output. Hence the synthesised netlist should optimisations. This becomes clear from the netlist given below.  
 ![combi_ckt](https://user-images.githubusercontent.com/78468534/120101495-fae27400-c163-11eb-875a-bc249eadb565.jpeg)  
-
+  
 Now consider a combinational circuit written as sub-modules.  
+![mulmodopt logic](https://user-images.githubusercontent.com/78468534/120101567-42690000-c164-11eb-8b61-f9b4b2a1d80e.jpeg)
+  
+The optimised netlist obtained is:  
+![mulmod opt ckt](https://user-images.githubusercontent.com/78468534/120101580-557bd000-c164-11eb-8872-62997595bc81.jpeg) 
+
+### Sequential Logic Optimisations
+The most common optimisations in sequential circuits are optimisations for constant and optimising unused outputs.
+  
+For optimisation of constants in sequential circuits, consider below example.  
+![seq logic](https://user-images.githubusercontent.com/78468534/120102197-75f95980-c167-11eb-9137-9b57da2b3af4.jpeg)
+  
+After simulating with the help og testbench the waveform obtained is:  
+![seq wave](https://user-images.githubusercontent.com/78468534/120102221-91fcfb00-c167-11eb-94e8-25df46601e67.jpeg)
+  
+From the waveform it is clear the output remains constant for all cases and hence can be optimised. The synthesis report obtained is given below.  
+![seq synth report](https://user-images.githubusercontent.com/78468534/120102254-bf49a900-c167-11eb-8c79-aee5e70d2bb0.jpeg)
+  
+Finally the optimised netlist given by the tools is:  
+![seq netlist](https://user-images.githubusercontent.com/78468534/120102284-e1dbc200-c167-11eb-8b27-055b8dc806e2.jpeg)
+  
+Now consider the next example for optimisation of unused outputs in sequential circuits.  
+![count_opt logic](https://user-images.githubusercontent.com/78468534/120102437-a1307880-c168-11eb-9daa-0c278fbec260.jpeg)
+  
+![countopt wave](https://user-images.githubusercontent.com/78468534/120102452-b2798500-c168-11eb-9b44-a7a583a3f607.jpeg)  
+_Waveform_  
+From the waveform it is clear that output is only dependant single bit of the counter. Hence the other flops can be optimised.  
+![coutopt rprt](https://user-images.githubusercontent.com/78468534/120102517-0b491d80-c169-11eb-9a9f-6e3a65572fa7.jpeg)  
+![countopt ckt](https://user-images.githubusercontent.com/78468534/120102528-1439ef00-c169-11eb-8560-326d1c94b493.jpeg)  
+The synthesised output contains only one flipflop as other unused flops are optimised off.
+
+---------
+### Day 4
+
+
+
 
 
 
