@@ -14,14 +14,14 @@ This repo is the report for 5-day workshop on RTL design using Verilog with SKY1
 * [Day 4](day-4)
 * [Day 5](day-5)
 
---------
+=============
 ## Introduction to tools
 * **_SKY130_** - Sky130 process node and pdk(process design kit) are an open-source packages provided by Google and skywater for 130nm technology.
 * **_iverilog_** - Iverilog stands for Icarus verilog, is an open source verilog simulator.
 * **_GTKWave_** - GTKWave is an open-source vcd(value change dump) waveform viewer.
 * **_Yosys_** - Yosys is an open-source synthesis tool.
 These are the _open-source_ tools used in the labs for the workshop.
---------
+============
 ## Day 1
 First step is to import all files including sky130 libraries into the system. We import the files with the help of git clone. Next, to work with the tools, the tool flow must be clear.
 The design flow consists of various types of files. These include:
@@ -39,7 +39,8 @@ Use the below commands for simulation and view the waveform with iverilog and GT
         gtkwave testbench_name.vcd                      //view vcd file in gtkwave viewer
 Snippet below shows the terminal for simulation flow of a synchronous reset d-flipflop.
 ![Simulation Flow CLI](https://user-images.githubusercontent.com/78468534/120084681-dd73c280-c0ef-11eb-9831-792c15cb5a2d.jpeg)
+----------
 Waveform shown by the GTKwave for the same example is:
 ![dff_syncres_waveform](https://user-images.githubusercontent.com/78468534/120097697-ab924880-c14f-11eb-91f5-96a38ad9ea57.jpeg)
-
+----------
 ### Synthesis Flow
