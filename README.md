@@ -39,5 +39,7 @@ Use the below commands for simulation and view the waveform with iverilog and GT
         gtkwave testbench_name.vcd                      //view vcd file in gtkwave viewer
 Snippet below shows the terminal for simulation flow of a synchronous reset d-flipflop.
 ![Simulation Flow CLI](https://user-images.githubusercontent.com/78468534/120084681-dd73c280-c0ef-11eb-9831-792c15cb5a2d.jpeg)
+Waveform shown by the GTKwave for the same example is:
+![dff_syncres_waveform](https://user-images.githubusercontent.com/78468534/120097697-ab924880-c14f-11eb-91f5-96a38ad9ea57.jpeg)
 
 ### Synthesis Flow
